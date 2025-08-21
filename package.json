@@ -1,8 +1,29 @@
 {
-  "dependencies": {
+  "name": "e-kom-final",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "devDependencies": {},
+  "scripts": {
+    "dev": "node --watch app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Clocky97/E-Kom-producto-final.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Clocky97/E-Kom-producto-final/issues"
+  },
+    "dependencies": {
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "mysql2": "^3.14.3",
     "sequelize": "^6.37.7"
-  }
+  },
+  "homepage": "https://github.com/Clocky97/E-Kom-producto-final#readme"
 }
