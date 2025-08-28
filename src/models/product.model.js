@@ -28,14 +28,3 @@ export const ProductModel = sequelize.define(
         
     }
 )
-
-ProductModel.belongsTo(CategoryModel, { //belongsTo va donde esta la forein key
-    as: "categoría",
-    foreignKey: "category_id",
-});
-
-CategoryModel.hasMany(ProductModel, {
-    as: "productos",
-    foreignKey: "category_id"
-}
-);
