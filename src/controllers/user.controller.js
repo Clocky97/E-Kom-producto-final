@@ -9,7 +9,7 @@ export const getAllUsers = async (req, res) => {
         });
         res.json(users);
     } catch (error) {
-        res.status(500).json({ error: "Error fetching users: " + error.message });
+        res.status(500).json({ error: "Error obteniendo los usuarios: " + error.message });
     }
 };
 
@@ -21,11 +21,11 @@ export const getUserById = async (req, res) => {
             include: [{ model: Profile, as: "profile" }]
         });
         if (!user) {
-            return res.status(404).json({ error: "User not found" });
+            return res.status(404).json({ error: "Usuario no encontrado" });
         }
         res.json(user);
     } catch (error) {
-        res.status(500).json({ error: "Error fetching user: " + error.message });
+        res.status(500).json({ error: "Error al traer usuario: " + error.message });
     }
 };
 
@@ -40,7 +40,7 @@ export const createUser = async (req, res) => {
                 error: error.errors.map(e => e.message)
             });
         }
-        res.status(500).json({ error: "Error creating user: " + error.message });
+        res.status(500).json({ error: "Error al crear el usuario: " + error.message });
     }
 };
 
@@ -50,12 +50,12 @@ export const updateUser = async (req, res) => {
         const { id } = req.params;
         const user = await User.findByPk(id);
         if (!user) {
-            return res.status(404).json({ error: "User not found" });
+            return res.status(404).json({ error: "Usuario no encontrado" });
         }
         await user.update(req.body);
         res.json(user);
     } catch (error) {
-        res.status(500).json({ error: "Error updating user: " + error.message });
+        res.status(500).json({ error: "Error al actualizar el usuario: " + error.message });
     }
 };
 
@@ -65,11 +65,11 @@ export const deleteUser = async (req, res) => {
         const { id } = req.params;
         const user = await User.findByPk(id);
         if (!user) {
-            return res.status(404).json({ error: "User not found" });
+            return res.status(404).json({ error: "Usuario no encontrado" });
         }
         await user.destroy();
-        res.json({ message: "User deleted successfully" });
+        res.json({ message: "Usuario eliminado correctamente" });
     } catch (error) {
-        res.status(500).json({ error: "Error deleting user: " + error.message });
+        res.status(500).json({ error: "Error al eliminar: " + error.message });
     }
 };

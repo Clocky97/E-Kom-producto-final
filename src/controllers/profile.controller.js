@@ -9,7 +9,7 @@ export const getAllProfiles = async (req, res) => {
         });
         res.json(profiles);
     } catch (error) {
-        res.status(500).json({ error: "Error fetching profiles: " + error.message });
+        res.status(500).json({ error: "Error al traer los perfiles: " + error.message });
     }
 };
 
@@ -21,11 +21,11 @@ export const getProfileById = async (req, res) => {
             include: [{ model: User, as: "user" }]
         });
         if (!profile) {
-            return res.status(404).json({ error: "Profile not found" });
+            return res.status(404).json({ error: "Perfil no encontrado" });
         }
         res.json(profile);
     } catch (error) {
-        res.status(500).json({ error: "Error fetching profile: " + error.message });
+        res.status(500).json({ error: "Error al traer el perfil: " + error.message });
     }
 };
 
@@ -40,7 +40,7 @@ export const createProfile = async (req, res) => {
                 error: error.errors.map(e => e.message) 
             });
         }
-        res.status(500).json({ error: "Error creating profile: " + error.message });
+        res.status(500).json({ error: "Error al crear el perfil: " + error.message });
     }
 };
 
@@ -50,12 +50,12 @@ export const updateProfile = async (req, res) => {
         const { id } = req.params;
         const profile = await Profile.findByPk(id);
         if (!profile) {
-            return res.status(404).json({ error: "Profile not found" });
+            return res.status(404).json({ error: "Perfil no econtrado" });
         }
         await profile.update(req.body);
         res.json(profile);
     } catch (error) {
-        res.status(500).json({ error: "Error updating profile: " + error.message });
+        res.status(500).json({ error: "Error al actualizar el perfil: " + error.message });
     }
 };
 
@@ -65,11 +65,11 @@ export const deleteProfile = async (req, res) => {
         const { id } = req.params;
         const profile = await Profile.findByPk(id);
         if (!profile) {
-            return res.status(404).json({ error: "Profile not found" });
+            return res.status(404).json({ error: "Perfil no encontrado" });
         }
         await profile.destroy();
-        res.json({ message: "Profile deleted successfully" });
+        res.json({ message: "perfil eliminado correctamente" });
     } catch (error) {
-        res.status(500).json({ error: "Error deleting profile: " + error.message });
+        res.status(500).json({ error: "Error al borrar: " + error.message });
     }
 };
