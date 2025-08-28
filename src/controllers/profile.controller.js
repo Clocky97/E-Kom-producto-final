@@ -1,54 +1,75 @@
-import Profile from "../models/profile.model.js";
+import { Profile } from "../models/relations.index.js";
+import { User } from "../models/relations.index.js";
 
-export const getProfileByUserId = async (userId) => {
+// Obtener todos los perfiles
+export const getAllProfiles = async (req, res) => {
     try {
-        const profileData = await Profile.findOne({ where: { user_id: userId } });
-        return profileData;
+        const profiles = await Profile.findAll({
+            include: [{ model: User, as: "user" }]
+        });
+        res.json(profiles);
     } catch (error) {
-        throw new Error("Error fetching profile: " + error.message);
+        res.status(500).json({ error: "Error fetching profiles: " + error.message });
     }
-}
+};
 
-export const createProfile = async (profileData) => {
+// Obtener un perfil por ID
+export const getProfileById = async (req, res) => {
     try {
-        const newProfile = await profile.create(profileData);
-        return newProfile;
-    } catch (error) {
-        throw new Error("Error creating profile: " + error.message);
-    }
-}
-
-export const updateProfile = async (userId, profileData) => {
-    try {
-        const existingProfile = await profile.findOne({ where: { user_id: userId } });
-        if (!existingProfile) {
-            throw new Error("Profile not found");
+        const { id } = req.params;
+        const profile = await Profile.findByPk(id, {
+            include: [{ model: User, as: "user" }]
+        });
+        if (!profile) {
+            return res.status(404).json({ error: "Profile not found" });
         }
-        await existingProfile.update(profileData);
-        return existingProfile;
+        res.json(profile);
     } catch (error) {
-        throw new Error("Error updating profile: " + error.message);
+        res.status(500).json({ error: "Error fetching profile: " + error.message });
     }
-}
+};
 
-export const deleteProfile = async (userId) => {    
+// Crear un perfil
+export const createProfile = async (req, res) => {
     try {
-        const existingProfile = await profile.findOne({ where: { user_id: userId } });
-        if (!existingProfile) {
-            throw new Error("Profile not found");
+        const profile = await Profile.create(req.body);
+        res.status(201).json(profile);
+    } catch (error) {
+        if (error.name === "SequelizeValidationError") {
+            return res.status(400).json({ 
+                error: error.errors.map(e => e.message) 
+            });
         }
-        await existingProfile.destroy();
-        return { message: "Profile deleted successfully" };
-    } catch (error) {
-        throw new Error("Error deleting profile: " + error.message);
+        res.status(500).json({ error: "Error creating profile: " + error.message });
     }
-}
+};
 
-export const getAllProfiles = async () => {
+// Actualizar un perfil
+export const updateProfile = async (req, res) => {
     try {
-        const profiles = await profile.findAll();
-        return profiles;
+        const { id } = req.params;
+        const profile = await Profile.findByPk(id);
+        if (!profile) {
+            return res.status(404).json({ error: "Profile not found" });
+        }
+        await profile.update(req.body);
+        res.json(profile);
     } catch (error) {
-        throw new Error("Error fetching profiles: " + error.message);
+        res.status(500).json({ error: "Error updating profile: " + error.message });
     }
-}
+};
+
+// Eliminar un perfil
+export const deleteProfile = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const profile = await Profile.findByPk(id);
+        if (!profile) {
+            return res.status(404).json({ error: "Profile not found" });
+        }
+        await profile.destroy();
+        res.json({ message: "Profile deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "Error deleting profile: " + error.message });
+    }
+};

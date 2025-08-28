@@ -11,8 +11,8 @@ const PORT = process.env.PORT || 1212;
 
 app.use(express.json());
 
-app.use("/users", userRouter);
-app.use("/profiles", profileRouter);
+app.use("/user", userRouter);
+app.use("/profile", profileRouter);
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
