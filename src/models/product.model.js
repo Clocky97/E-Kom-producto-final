@@ -1,5 +1,6 @@
 import { DataTypes, STRING } from "sequelize";
 import { sequelize } from "../config/database.js";
+import { CategoryModel } from "./category.model.js";
 
 export const ProductModel = sequelize.define(
     "product",{
@@ -19,51 +20,22 @@ export const ProductModel = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        "is_vegan": {
-            type: DataTypes.BOOLEAN,
-
-            
-            defaultValue: false
-        },
-        "dairy": { //lacteos
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
-        "meats": {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
-        "gluten_free": {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
-        "bakery_pasta": { //panificados y pastas
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
-        "grocery_canned": { //almacén y conservas
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
-        "fruits_vegetables": {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
-        "sweets_snacks": {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
-        "beverages": {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
-        "frozen": { //congelados, no elsa
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
-        "healthy_diet": {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
+        "category_id": {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
+        
+        
     }
 )
+
+ProductModel.belongsTo(CategoryModel, { //belongsTo va donde esta la forein key
+    as: "categoría",
+    foreignKey: "category_id",
+});
+
+CategoryModel.hasMany(ProductModel, {
+    as: "productos",
+    foreignKey: "category_id"
+}
+);
