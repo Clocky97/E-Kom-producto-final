@@ -6,12 +6,7 @@ import profileRouter from "./src/routes/profile.routes.js";
 import categoryRouter from "./src/routes/category.routes.js";
 import postRouter from "./src/routes/post.routes.js";
 import ProductRouter from "./src/routes/product.routes.js";
-import "../E-Kom-producto-final/src/models/category.model.js"
-import "../E-Kom-producto-final/src/models/post.model.js"
-import "../E-Kom-producto-final/src/models/product.model.js"
-import "../E-Kom-producto-final/src/models/profile.model.js"
-import "../E-Kom-producto-final/src/models/user.model.js"
-import "../E-Kom-producto-final/src/models/relations.index.js"
+
 
 dotenv.config();    
 

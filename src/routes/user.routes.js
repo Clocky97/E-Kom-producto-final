@@ -7,11 +7,11 @@ import { handleValidation } from "../middlewares/validation.handler.js";
 
 const router = Router();
 
-router.get("/", getAllUsers);
-router.get("/:id", getUserById);
-router.post("/", createUserValidation, handleValidation, createUser);
-router.put("/:id", createUserValidation, handleValidation, updateUser);
-router.delete("/:id", deleteUser);
+router.get("/users", getAllUsers);
+router.get("/users/:id", getUserById);
+router.post("/users", createUserValidation, handleValidation, createUser);
+router.put("/users/:id", createUserValidation, handleValidation, updateUser);
+router.delete("/users/:id", deleteUser);
 
 export default router;
 
