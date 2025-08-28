@@ -45,7 +45,7 @@ export const updateCategory = async (req, res) => {
 export const deleteCategory = async (req, res) => {
     try {
         const category = await CategoryModel.findByPk(req.params.id);
-        category.destroy();
+        await category.destroy();
         res.status(200).json({msj: "Categoría eliminada"})
     } catch (error) {
         res.status(500).json({ message: "", error});

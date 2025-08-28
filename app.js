@@ -15,8 +15,8 @@ const PORT = process.env.PORT || 1212;
 
 app.use(express.json());
 
-app.use("/users", userRouter);
-app.use("/profiles", profileRouter);
+app.use("/ekom", userRouter);
+app.use("/ekom", profileRouter);
 app.use("/ekom", categoryRouter);
 app.use("/ekom", postRouter);
 app.use("/ekom", ProductRouter);
