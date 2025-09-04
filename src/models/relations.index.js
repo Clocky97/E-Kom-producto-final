@@ -3,6 +3,7 @@ import User from "./user.model.js";
 import { CategoryModel } from "./category.model.js";
 import { PostModel } from "./post.model.js";
 import { ProductModel } from "./product.model.js";
+import { MarketModel } from "./market.model.js";
 
 
 
@@ -43,6 +44,16 @@ PostModel.belongsTo(User, {
 User.hasMany(PostModel, {
     as: "publicaciones",
     foreignKey: "user_id"
+})
+
+PostModel.belongsTo(MarketModel, {
+    as: "local",
+    foreignKey: "market_id"
+});
+
+MarketModel.hasMany(PostModel, {
+    as: "publicaciones",
+    foreignKey: "market_id"
 })
 
 
