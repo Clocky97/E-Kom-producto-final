@@ -6,6 +6,7 @@ import profileRouter from "./src/routes/profile.routes.js";
 import categoryRouter from "./src/routes/category.routes.js";
 import postRouter from "./src/routes/post.routes.js";
 import ProductRouter from "./src/routes/product.routes.js";
+import cookieParser from "cookie-parser";
 
 
 dotenv.config();    
@@ -14,6 +15,7 @@ const app = express();
 const PORT = process.env.PORT || 1212;
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/ekom", userRouter);
 app.use("/ekom", profileRouter);

@@ -10,7 +10,9 @@ export const MarketModel = sequelize.define(
         location: {
             type: DataTypes.STRING, //si guardamos la ubi segun calle y altura
             allowNull: false
+        },
+        "type": {
+            type: DataTypes.ENUM("SuperMercado", "miniMercado", "kiosco")
         }
     }
 );
-
