@@ -14,7 +14,7 @@ router.get("/user/:id", auth, getUserById);
 router.post("/user/", auth, createUserValidation, handleValidation, createUser);
 router.put("/user/:id", auth, createUserValidation, handleValidation, updateUser);
 router.delete("/user/:id",auth, deleteUser);
-// Rutas de autenticación
+//login y logout
 router.post("/register", register);
 router.post("/login", login);
 //Solo el admin debe poder eliminar y ver todos los usuarios
