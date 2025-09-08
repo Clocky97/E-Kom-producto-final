@@ -9,7 +9,7 @@ export const sequelize = new Sequelize(
     process.env.DB_PASSWORD,
     {
         host: process.env.DB_HOST,
-        dialect: process.env.DB_DIALECT || 1212,
+        dialect: process.env.DB_DIALECT|| 1212,
     }
 );
 
