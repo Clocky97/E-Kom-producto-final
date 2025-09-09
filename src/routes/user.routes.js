@@ -9,11 +9,10 @@ import { auth, admin } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.get("/user", auth, getAllUsers);
-router.get("/user/:id", auth, getUserById);
+router.get("/user", getAllUsers);
+router.get("/user/:id", getUserById);
 router.post("/user/", auth, createUserValidation, handleValidation, createUser);
 router.put("/user/:id", auth, createUserValidation, handleValidation, updateUser);
-router.delete("/user/:id",auth, deleteUser);
 //login y logout
 router.post("/register", register);
 router.post("/login", login);

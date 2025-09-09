@@ -29,6 +29,7 @@ export const login = async (req, res) => {
       return res.status(401).json({ message: "Credenciales inválidas" });
     }
     const token = generateToken({ id: user.id, role: user.role });
+    console.log(token);
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
