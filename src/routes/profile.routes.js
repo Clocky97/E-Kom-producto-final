@@ -6,15 +6,16 @@ import {
   updateProfile,
   deleteProfile,
 } from "../controllers/profile.controller.js";
-import { createProfileValidation } from "../middlewares/validations/profile.validation.js";
-import { handleValidation } from "../middlewares/validation.handler.js";
+import { createProfileValidation } from "../middlewares/profile.validation.js";
+import { handleValidation } from "../middlewares/validation_handler.js";
+import { auth, admin } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.get("/profiles", getAllProfiles);
-router.get("/profiles/:id", getProfileById);
-router.post("/profiles", createProfileValidation, handleValidation, createProfile);
-router.put("/profiles/:id", createProfileValidation, handleValidation, updateProfile);
-router.delete("/profiles/:id", deleteProfile);
+router.get("/profile", auth, getAllProfiles);
+router.get("/profile/:id", auth, getProfileById);
+router.post("/profile", auth, createProfileValidation, handleValidation, createProfile);
+router.put("/profile/:id", auth, createProfileValidation, handleValidation, updateProfile);
+router.delete("/profile/:id", auth, admin, deleteProfile);
 
 export default router;
