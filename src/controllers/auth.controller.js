@@ -5,13 +5,25 @@ import { generateToken } from "../helpers/jwt.helper.js";
 // Registro
 
 export const register = async (req, res) => {
+  const transaction = sequelize.transaction();
   try {
-    const { username, email, password, role } = req.body;
+    const { username, email, password, role, name, lastname } = req.body;
+
     const hashed = await hashPassword(password);
-    const user = await User.create({ username, email, password: hashed, role });
+    const user = await User.create({ username, email, password: hashed, role },
+        {transaction});
+    await Profile.create({
+            name: name,
+            lastname: lastname,
+            user_id: user.id
+        },
+        {transaction});
+
+        (await transaction).commit();
     res.status(201).json({ message: "Usuario registrado correctamente", user });
   } catch (error) {
     res.status(500).json({ message: "Error al registrar usuario", error });
+    (await transaction).rollback();
   }
 };
 
