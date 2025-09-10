@@ -1,25 +1,24 @@
 import { Router } from "express";
-import { register, login } from "../controllers/auth.controller.js";
-import { 
-  getAllUsers, getUserById, createUser, updateUser, deleteUser 
-} from "../controllers/user.controller.js";
+import { register, login, refresh, logout } from "../controllers/auth.controller.js";
+import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from "../controllers/user.controller.js";
 import { createUserValidation } from "../middlewares/user.validation.js";
 import { handleValidation } from "../middlewares/validation_handler.js";
 import { auth, admin } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.get("/user", getAllUsers);
-router.get("/user/:id", getUserById);
-router.post("/user/", auth, createUserValidation, handleValidation, createUser);
-router.put("/user/:id", auth, createUserValidation, handleValidation, updateUser);
-//login y logout
+// Rutas públicas
 router.post("/register", register);
 router.post("/login", login);
-//Solo el admin debe poder eliminar y ver todos los usuarios
-router.delete("/user/:id", auth, admin, deleteUser);
-//Usuario autenticado puede ver tdos los usuarios
+router.post("/refresh", refresh);
+router.post("/logout", logout);
+
+// Rutas protegidas
 router.get("/user", auth, getAllUsers);
+router.get("/user/:id", auth, getUserById);
+router.post("/user/", auth, createUserValidation, handleValidation, createUser);
+router.put("/user/:id", auth, createUserValidation, handleValidation, updateUser);
+router.delete("/user/:id", auth, admin, deleteUser);
 
 export default router;
 

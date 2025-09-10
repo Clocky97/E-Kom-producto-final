@@ -1,54 +1,78 @@
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
-import { hashPassword, comparePassword } from "../helpers/bcrypt.helper.js";
-import { generateToken } from "../helpers/jwt.helper.js";
+
+const JWT_SECRET = process.env.JWT_SECRET || "secreto";
+const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || "refresh_secreto";
 
 // Registro
-
 export const register = async (req, res) => {
+  const { username, email, password, role } = req.body;
   try {
-    const { username, email, password, role } = req.body;
-    const hashed = await hashPassword(password);
-    const user = await User.create({ username, email, password: hashed, role });
-    res.status(201).json({ message: "Usuario registrado correctamente", user });
-  } catch (error) {
-    res.status(500).json({ message: "Error al registrar usuario", error });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await User.create({ username, email, password: hashedPassword, role });
+    res.status(201).json({ message: "Usuario registrado" });
+  } catch (err) {
+    res.status(400).json({ error: "No se pudo registrar el usuario" });
   }
 };
 
 // Login
-
 export const login = async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ where: { email } });
+  if (!user) return res.status(400).json({ error: "Usuario no encontrado" });
+
+  const valid = await bcrypt.compare(password, user.password);
+  if (!valid) return res.status(400).json({ error: "Contraseña incorrecta" });
+
+  const accessToken = jwt.sign(
+    { id: user.id, role: user.role },
+    JWT_SECRET,
+    { expiresIn: "15m" }
+  );
+  const refreshToken = jwt.sign(
+    { id: user.id, role: user.role },
+    JWT_REFRESH_SECRET,
+    { expiresIn: "7d" }
+  );
+
+  user.refreshToken = refreshToken;
+  await user.save();
+
+  res.json({ accessToken, refreshToken });
+};
+
+// Refresh token
+export const refresh = async (req, res) => {
+  const { refreshToken } = req.body;
+  if (!refreshToken) return res.status(401).json({ error: "Refresh token requerido" });
+
   try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ where: { email } });
-    if (!user) {
-      return res.status(401).json({ message: "Credenciales inválidas" });
-    }
-    const valid = await comparePassword(password, user.password);
-    if (!valid) {
-      return res.status(401).json({ message: "Credenciales inválidas" });
-    }
-    const token = generateToken({ id: user.id, role: user.role });
-    console.log(token);
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 24 * 60 * 60 * 1000,
-    });
-    res.status(200).json({ message: "Login exitoso" });
-  } catch (error) {
-    res.status(500).json({ message: "Error al iniciar sesión", error });
+    const user = await User.findOne({ where: { refreshToken } });
+    if (!user) return res.status(403).json({ error: "Refresh token inválido" });
+
+    jwt.verify(refreshToken, JWT_REFRESH_SECRET);
+
+    const accessToken = jwt.sign(
+      { id: user.id, role: user.role },
+      JWT_SECRET,
+      { expiresIn: "15m" }
+    );
+
+    res.json({ accessToken });
+  } catch {
+    res.status(403).json({ error: "Refresh token inválido" });
   }
 };
 
 // Logout
-
 export const logout = async (req, res) => {
-  try {
-    res.clearCookie("token");
-    res.status(200).json({ message: "Logout exitoso" });
-  } catch (error) {
-    res.status(500).json({ message: "Error al cerrar sesión", error });
+  const { refreshToken } = req.body;
+  const user = await User.findOne({ where: { refreshToken } });
+  if (user) {
+    user.refreshToken = null;
+    await user.save();
   }
+  res.json({ message: "Logout exitoso" });
 };
