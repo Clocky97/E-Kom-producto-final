@@ -1,9 +1,8 @@
 import Profile from "./profile.model.js";
 import User from "./user.model.js";
 import { CategoryModel } from "./category.model.js";
-import { PostModel } from "./post.model.js";
+import PostModel from "./post.model.js";
 import { ProductModel } from "./product.model.js";
-import Post from "./post.model.js";
 import Report from "./report.model.js";
 import Rating from "./rating.model.js";
 
@@ -54,16 +53,16 @@ User.hasMany(Report);
 Report.belongsTo(User);
 
 // Un post puede tener muchos reportes
-Post.hasMany(Report);
-Report.belongsTo(Post);
+PostModel.hasMany(Report);
+Report.belongsTo(PostModel);
 
 // Un usuario puede puntuar muchos posts
 User.hasMany(Rating);
 Rating.belongsTo(User);
 
 // Un post puede tener muchas puntuaciones
-Post.hasMany(Rating);
-Rating.belongsTo(Post);
+PostModel.hasMany(Rating);
+Rating.belongsTo(PostModel);
 
 
 export { User, Profile };
