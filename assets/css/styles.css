@@ -1,0 +1,23 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 2rem;
+  background: #f9f9f9;
+}
+form {
+  margin-bottom: 1rem;
+}
+input, button {
+  margin: 0.2rem;
+  padding: 0.5rem;
+}
+#posts {
+  margin-top: 2rem;
+}
+.star {
+  color: gold;
+  font-size: 1.3em;
+  cursor: pointer;
+}
+.star:hover {
+  filter: brightness(1.2);
+}
