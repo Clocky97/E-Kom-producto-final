@@ -11,7 +11,8 @@ export const getAllPost = async (req, res) => {
 
 export const getPostById = async (req, res) => {
     try {
-        const post = await PostModel.findByPk(req.params.id);
+        const user = await req.user;
+        const post = await PostModel.findByPk(user.id);
         res.status(200).json(post)
     } catch (error) {;
         res.status(500).json({ message: "", error});

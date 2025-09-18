@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { register, login } from "../controllers/auth.controller.js";
+import { register, login } from "../controllers/auth.controllers.js";
 import { 
   getAllUsers, getUserById, createUser, updateUser, deleteUser 
 } from "../controllers/user.controller.js";
-import { createUserValidation } from "../middlewares/user.validation.js";
+import { createUserValidation } from "../middlewares/validations/user.validation.js";
 import { handleValidation } from "../middlewares/validation_handler.js";
 import { auth, admin } from "../middlewares/auth.middleware.js";
 
