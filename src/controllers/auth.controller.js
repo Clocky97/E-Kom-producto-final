@@ -7,10 +7,11 @@ const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || "refresh_secreto";
 
 // Registro
 export const register = async (req, res) => {
-  const { username, email, password, role } = req.body;
+  console.log("NO VEO UN CHOTO");
+  const { username, email, password } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    await User.create({ username, email, password: hashedPassword, role });
+    await User.create({ username, email, password: hashedPassword });
     res.status(201).json({ message: "Usuario registrado" });
   } catch (err) {
     res.status(400).json({ error: "No se pudo registrar el usuario" });

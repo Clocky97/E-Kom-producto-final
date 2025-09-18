@@ -16,7 +16,7 @@ router.post("/logout", logout);
 // Rutas protegidas
 router.get("/user", auth, getAllUsers);
 router.get("/user/:id", auth, getUserById);
-router.post("/user/", auth, createUserValidation, handleValidation, createUser);
+router.post("/user/", createUserValidation, handleValidation, createUser);
 router.put("/user/:id", auth, createUserValidation, handleValidation, updateUser);
 router.delete("/user/:id", auth, admin, deleteUser);
 

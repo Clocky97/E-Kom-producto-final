@@ -1,5 +1,7 @@
+
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import { startDB } from "./src/config/database.js";
 import userRouter from "./src/routes/user.routes.js";
 import profileRouter from "./src/routes/profile.routes.js";
@@ -13,6 +15,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 1212;
 
+// Habilitar CORS para el frontend
+app.use(cors({
+    origin: "http://127.0.0.1:5500",
+    credentials: true
+}));
+
 app.use(express.json());
 
 app.use("/ekom", userRouter);
@@ -21,7 +29,7 @@ app.use("/ekom", categoryRouter);
 app.use("/ekom", postRouter);
 app.use("/ekom", ProductRouter);
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
-    startDB();
+    await startDB();
 });
