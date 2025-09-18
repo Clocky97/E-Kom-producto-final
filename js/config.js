@@ -1,4 +1,4 @@
-// API Configuration
+// API
 export const API_CONFIG = {
   BASE_URL: "http://localhost:1212/ekom",
   ENDPOINTS: {
@@ -24,7 +24,7 @@ export const API_CONFIG = {
   },
 }
 
-// Application state
+// Estado de la aplicacion
 export const APP_STATE = {
   currentUser: null,
   isAuthenticated: false,
@@ -36,9 +36,9 @@ export const APP_STATE = {
   sortBy: "newest",
 }
 
-// Utility functions
+// Utilidades
 export const Utils = {
-  // Show loading overlay
+  // Overlay de loading
   showLoading() {
     const overlay = document.getElementById("loading-overlay")
     if (overlay) {
@@ -46,7 +46,7 @@ export const Utils = {
     }
   },
 
-  // Hide loading overlay
+  // Esconder loadong overlay
   hideLoading() {
     const overlay = document.getElementById("loading-overlay")
     if (overlay) {
@@ -54,9 +54,9 @@ export const Utils = {
     }
   },
 
-  // Show toast notification
+  // Mostrar toast notification
   showToast(message, type = "info") {
-    // Create toast element if it doesn't exist
+    // Crear un toast element si es quqe no existe
     let toastContainer = document.getElementById("toast-container")
     if (!toastContainer) {
       toastContainer = document.createElement("div")
@@ -95,7 +95,7 @@ export const Utils = {
       toast.style.transform = "translateX(0)"
     }, 10)
 
-    // Remove after 4 seconds
+    // Remover despues de 4 segundos
     setTimeout(() => {
       toast.style.transform = "translateX(100%)"
       setTimeout(() => {
@@ -106,7 +106,7 @@ export const Utils = {
     }, 4000)
   },
 
-  // Format price
+  // Precio
   formatPrice(price) {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -114,7 +114,7 @@ export const Utils = {
     }).format(price)
   },
 
-  // Format date
+  // Fecha
   formatDate(dateString) {
     return new Intl.DateTimeFormat("en-US", {
       year: "numeric",
@@ -136,7 +136,7 @@ export const Utils = {
     }
   },
 
-  // Generate star rating HTML
+  // Generar rating por estrellas HTML
   generateStars(rating, maxRating = 5) {
     let starsHtml = ""
     const fullStars = Math.floor(rating)
@@ -158,13 +158,13 @@ export const Utils = {
     return starsHtml
   },
 
-  // Validate email
+  // Validar email
   isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return emailRegex.test(email)
   },
 
-  // Validate password strength
+  // Validar la seguridad de la contraseña
   isValidPassword(password) {
     return password.length >= 6
   },

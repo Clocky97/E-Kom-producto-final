@@ -41,6 +41,7 @@ export class APIService {
   }
 
   async register(userData) {
+    console.log("Registering user:", userData);
     return await this.request(API_CONFIG.ENDPOINTS.REGISTER, {
       method: "POST",
       body: JSON.stringify(userData),
