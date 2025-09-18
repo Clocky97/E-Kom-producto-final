@@ -6,13 +6,15 @@ import {
 import { createUserValidation } from "../middlewares/user.validation.js";
 import { handleValidation } from "../middlewares/validation_handler.js";
 import { auth, admin } from "../middlewares/auth.middleware.js";
+import { updateUserValidation } from "../middlewares/validations/user.validation.js";
+
 
 const router = Router();
 
 router.get("/user", getAllUsers);
 router.get("/user/:id", getUserById);
 router.post("/user/", auth, createUserValidation, handleValidation, createUser);
-router.put("/user/:id", auth, createUserValidation, handleValidation, updateUser);
+router.put("/user/:id", auth, updateUserValidation, handleValidation, updateUser);
 //login y logout
 router.post("/register", register);
 router.post("/login", login);
