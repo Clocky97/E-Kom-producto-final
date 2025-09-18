@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { register, login } from "../controllers/auth.controllers.js";
+import { register, login, logout } from "../controllers/auth.controller.js";
 import { 
   getAllUsers, getUserById, createUser, updateUser, deleteUser 
 } from "../controllers/user.controller.js";
@@ -16,6 +16,7 @@ router.put("/user/:id", auth, createUserValidation, handleValidation, updateUser
 //login y logout
 router.post("/register", register);
 router.post("/login", login);
+router.post("/logout", logout);
 //Solo el admin debe poder eliminar y ver todos los usuarios
 router.delete("/user/:id", auth, admin, deleteUser);
 //Usuario autenticado puede ver tdos los usuarios
