@@ -7,16 +7,17 @@ import { createUserValidation } from "../middlewares/validations/user.validation
 import { handleValidation } from "../middlewares/validation_handler.js";
 import { auth, admin } from "../middlewares/auth.middleware.js";
 import { updateUserValidation } from "../middlewares/validations/user.validation.js";
+import { registerValidations } from "../middlewares/validations/auth.validations.js";
 
 
 const router = Router();
 
 router.get("/user", getAllUsers);
 router.get("/user/:id", getUserById);
-router.post("/user/", auth, createUserValidation, handleValidation, createUser);
+router.post("/user/", auth, admin, createUserValidation, handleValidation, createUser);
 router.put("/user/:id", auth, updateUserValidation, handleValidation, updateUser);
-//login y logout
-router.post("/register", register);
+//register,login y logout
+router.post("/register", registerValidations, handleValidation, register);
 router.post("/login", login);
 router.post("/logout", logout);
 //Solo el admin debe poder eliminar y ver todos los usuarios

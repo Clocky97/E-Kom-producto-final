@@ -2,7 +2,7 @@ import { json, Sequelize } from "sequelize";
 import User from "../models/user.model.js";
 import { sequelize } from "../config/database.js";
 import Profile from "../models/profile.model.js";
-import { generatToken } from "../helpers/jwt.helper.js";
+import { generateToken } from "../helpers/jwt.helper.js";
 import { hashPassword } from "../helpers/bcrypt.helper.js";
 
 

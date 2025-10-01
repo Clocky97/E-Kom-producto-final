@@ -46,6 +46,7 @@ User.hasMany(PostModel, {
     foreignKey: "user_id"
 })
 
+//post con market
 PostModel.belongsTo(MarketModel, {
     as: "local",
     foreignKey: "market_id"
@@ -58,3 +59,5 @@ MarketModel.hasMany(PostModel, {
 
 
 export { User, Profile };
+
+
