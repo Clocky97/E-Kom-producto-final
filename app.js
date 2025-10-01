@@ -1,5 +1,5 @@
 import express from "express";
-import dotenv from "dotenv";
+import "dotenv/config";
 import { startDB } from "./src/config/database.js";
 import userRouter from "./src/routes/user.routes.js";
 import profileRouter from "./src/routes/profile.routes.js";
@@ -9,7 +9,6 @@ import ProductRouter from "./src/routes/product.routes.js";
 import cookieParser from "cookie-parser";
 
 
-dotenv.config();    
 
 const app = express();
 const PORT = process.env.PORT || 1212;

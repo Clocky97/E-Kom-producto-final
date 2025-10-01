@@ -12,7 +12,8 @@ export const MarketModel = sequelize.define(
             allowNull: false
         },
         "type": {
-            type: DataTypes.ENUM("SuperMercado", "miniMercado", "kiosco")
+            type: DataTypes.ENUM("SuperMercado", "miniMercado", "kiosco"),
+            allowNull: false   
         }
     }
 );
