@@ -6,7 +6,7 @@ import {
   updateProfile,
   deleteProfile,
 } from "../controllers/profile.controller.js";
-import { createProfileValidation } from "../middlewares/profile.validation.js";
+import { createProfileValidation } from "../middlewares/validations/profile.validation.js";
 import { handleValidation } from "../middlewares/validation_handler.js";
 import { auth, admin } from "../middlewares/auth.middleware.js";
 import { getUserAvRating } from "../controllers/rating.controller.js";

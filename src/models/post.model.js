@@ -13,6 +13,10 @@ const PostModel = sequelize.define(
             type: DataTypes.TEXT, 
             allowNull: false
         },
+        "offer": {
+            type: DataTypes.ENUM("estandar", "oferta"),
+            defaultValue: "estandar"
+        },
         "user_id": {
             type: DataTypes.INTEGER,
             allowNull: false

@@ -1,17 +1,31 @@
 import { Router } from "express";
+import { register, login, logout } from "../controllers/auth.controller.js";
+import { 
+  getAllUsers, getUserById, createUser, updateUser, deleteUser 
+} from "../controllers/user.controller.js";
 import { register, login, refresh, logout } from "../controllers/auth.controller.js";
 import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from "../controllers/user.controller.js";
 import { createUserValidation } from "../middlewares/user.validation.js";
 import { handleValidation } from "../middlewares/validation_handler.js";
 import { auth, admin } from "../middlewares/auth.middleware.js";
+import { updateUserValidation } from "../middlewares/validations/user.validation.js";
+import { registerValidations } from "../middlewares/validations/auth.validations.js";
+
 
 const router = Router();
 
-// Rutas públicas
-router.post("/register", register);
+router.get("/user", getAllUsers);
+router.get("/user/:id", getUserById);
+router.post("/user/", auth, admin, createUserValidation, handleValidation, createUser);
+router.put("/user/:id", auth, updateUserValidation, handleValidation, updateUser);
+//register,login y logout
+router.post("/register", registerValidations, handleValidation, register);
 router.post("/login", login);
-router.post("/refresh", refresh);
 router.post("/logout", logout);
+//Solo el admin debe poder eliminar y ver todos los usuarios
+router.delete("/user/:id", auth, admin, deleteUser);
+//Refresh
+router.post("/refresh", refresh);
 
 // Rutas protegidas
 router.get("/user", auth, getAllUsers);

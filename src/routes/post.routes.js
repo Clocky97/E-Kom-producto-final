@@ -6,7 +6,7 @@ import { getPostAvRating } from "../controllers/rating.controller.js";
 const router = Router();
 
 router.get("/post", auth, getAllPost);
-router.get("/post/:id", auth, getPostById);
+router.get("/post/loggued-user", auth, getPostById);
 router.post("/post", auth, admin, createPost);
 router.put("/post/:id", auth, admin, updatePost);
 router.delete("/post/:id", auth, admin, deletePost);
