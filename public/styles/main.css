@@ -26,6 +26,17 @@
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* main.css */
+
+body {
+  font-family: "Lexend", sans-serif;
+  background-color: var(--color-lightest);
+  color: var(--color-text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+
 /* Reset and Base Styles */
 * {
   margin: 0;
