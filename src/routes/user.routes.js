@@ -3,7 +3,9 @@ import { register, login, logout } from "../controllers/auth.controller.js";
 import { 
   getAllUsers, getUserById, createUser, updateUser, deleteUser 
 } from "../controllers/user.controller.js";
-import { createUserValidation } from "../middlewares/validations/user.validation.js";
+import { register, login, refresh, logout } from "../controllers/auth.controller.js";
+import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from "../controllers/user.controller.js";
+import { createUserValidation } from "../middlewares/user.validation.js";
 import { handleValidation } from "../middlewares/validation_handler.js";
 import { auth, admin } from "../middlewares/auth.middleware.js";
 import { updateUserValidation } from "../middlewares/validations/user.validation.js";
@@ -22,8 +24,15 @@ router.post("/login", login);
 router.post("/logout", logout);
 //Solo el admin debe poder eliminar y ver todos los usuarios
 router.delete("/user/:id", auth, admin, deleteUser);
-//Usuario autenticado puede ver tdos los usuarios
+//Refresh
+router.post("/refresh", refresh);
+
+// Rutas protegidas
 router.get("/user", auth, getAllUsers);
+router.get("/user/:id", auth, getUserById);
+router.post("/user/", createUserValidation, handleValidation, createUser);
+router.put("/user/:id", auth, createUserValidation, handleValidation, updateUser);
+router.delete("/user/:id", auth, admin, deleteUser);
 
 export default router;
 

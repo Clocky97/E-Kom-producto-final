@@ -3,7 +3,7 @@ import { DataTypes } from "sequelize";
 import { ProductModel } from "./product.model.js";
 import  User  from "./user.model.js";
 
-export const PostModel = sequelize.define(
+const PostModel = sequelize.define(
     "post", {
         "titulo": {
             type: DataTypes.STRING,
@@ -23,3 +23,5 @@ export const PostModel = sequelize.define(
         }
     }
 )
+
+export default PostModel;

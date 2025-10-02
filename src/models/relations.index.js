@@ -1,9 +1,12 @@
 import Profile from "./profile.model.js";
 import User from "./user.model.js";
 import { CategoryModel } from "./category.model.js";
-import { PostModel } from "./post.model.js";
+import PostModel from "./post.model.js";
 import { ProductModel } from "./product.model.js";
 import { MarketModel } from "./market.model.js";
+import Report from "./report.model.js";
+import Rating from "./rating.model.js";
+
 
 
 
@@ -57,7 +60,21 @@ MarketModel.hasMany(PostModel, {
     foreignKey: "market_id"
 })
 
+// Un usuario puede reportar muchos posts
+User.hasMany(Report);
+Report.belongsTo(User);
 
+// Un post puede tener muchos reportes
+PostModel.hasMany(Report);
+Report.belongsTo(PostModel);
+
+// Un usuario puede puntuar muchos posts
+User.hasMany(Rating);
+Rating.belongsTo(User);
+
+// Un post puede tener muchas puntuaciones
+PostModel.hasMany(Rating);
+Rating.belongsTo(PostModel);
 export { User, Profile };
 
 
