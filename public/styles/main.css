@@ -1,12 +1,12 @@
 /* CSS Variables for Color Palette */
 :root {
-  --color-primary: #abc4ff;
-  --color-primary-light: #b6ccfe;
-  --color-primary-lighter: #c1d3fe;
-  --color-secondary: #ccdbfd;
-  --color-accent: #d7e3fc;
-  --color-light: #e2eafc;
-  --color-lightest: #edf2fb;
+  --color-primary: #4361ee;
+  --color-primary-light: #4f72e6;
+  --color-primary-lighter: #5a82de;
+  --color-secondary: #7209b7;
+  --color-accent: #560bad;
+  --color-light: #bdbdfc;
+  --color-lightest: #e0aaff;
 
   --color-text: #2d3748;
   --color-text-light: #4a5568;
