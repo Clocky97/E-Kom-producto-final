@@ -1,5 +1,5 @@
 import Rating from "../models/rating.model.js";
-import Post from "../models/post.model.js";
+import {PostModel} from "../models/post.model.js";
 
 export const ratePost = async (req, res) => {
   const { postId, score } = req.body;

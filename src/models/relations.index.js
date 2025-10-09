@@ -1,7 +1,7 @@
 import Profile from "./profile.model.js";
 import User from "./user.model.js";
 import { CategoryModel } from "./category.model.js";
-import PostModel from "./post.model.js";
+import {PostModel} from "./post.model.js";
 import { ProductModel } from "./product.model.js";
 import { MarketModel } from "./market.model.js";
 import Report from "./report.model.js";
