@@ -34,7 +34,7 @@ async function loadProfile() {
 
   document.getElementById('profile-name').textContent = `${profile.name} ${profile.lastname}`;
   document.getElementById('profile-bio').textContent = profile.bio || 'Sin biografía';
-  document.getElementById('profile-avatar').src = profile.avatar || 'img/default-avatar.png';
+  document.getElementById('profile-avatar').src = profile.avatar || 'img/default_avatar.png';
 }
 
 // Guardar perfil
