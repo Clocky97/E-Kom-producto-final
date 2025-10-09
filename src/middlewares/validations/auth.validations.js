@@ -10,7 +10,7 @@ export const registerValidations = [
   body("password")
     .notEmpty().withMessage("La contraseña es obligatoria")
     .isLength({ min: 6 }).withMessage("La contraseña debe tener al menos 6 caracteres")
-    .isStrongPassword(),
+    .isStrongPassword().withMessage("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo"),
     body("name")
     .notEmpty().withMessage("El nombre es obligatorio")
     .isLength({ min: 2, max: 100 }).withMessage("El nombre debe tener entre 2 y 100 caracteres"),
