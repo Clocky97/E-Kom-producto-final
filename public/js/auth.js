@@ -58,13 +58,15 @@ if (registerForm) {
     const btn = registerForm.querySelector('button');
     setLoading(btn, true);
     const username = registerForm.username.value;
+    const name = registerForm.name.value;
+    const lastname = registerForm.lastname.value;
     const email = registerForm.email.value;
     const password = registerForm.password.value;
     try {
       const res = await fetch(`${API_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, password })
+        body: JSON.stringify({ username, name, lastname, email, password })
       });
         const data = await res.json();
         console.log(data);
