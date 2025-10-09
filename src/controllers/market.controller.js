@@ -11,6 +11,16 @@ export const getAllMarkets = async (req, res) => {
     }
 };
 
+export const getMarketById = async (req, res) => {
+    try {
+        const market = await MarketModel.findByPk(req.params.id);
+        res.status(200).json(market);
+    } catch (error) {
+        res.status(500).json({message: "Error interno del servidor"});
+        console.log(error)
+    }
+};
+
 
 export const createMarket = async (req, res) => {
     try {

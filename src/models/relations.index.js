@@ -6,6 +6,7 @@ import { ProductModel } from "./product.model.js";
 import { MarketModel } from "./market.model.js";
 import Report from "./report.model.js";
 import Rating from "./rating.model.js";
+import { OfferModel } from "./offer.model.js";
 
 
 
@@ -60,6 +61,12 @@ MarketModel.hasMany(PostModel, {
     foreignKey: "market_id"
 })
 
+//post con offer
+PostModel.belongsTo(OfferModel, {
+    as: "ofertas",
+    foreignKey: "offer_id"
+})
+
 // Un usuario puede reportar muchos posts
 User.hasMany(Report);
 Report.belongsTo(User);
@@ -76,5 +83,6 @@ Rating.belongsTo(User);
 PostModel.hasMany(Rating);
 Rating.belongsTo(PostModel);
 export { User, Profile };
+
 
 

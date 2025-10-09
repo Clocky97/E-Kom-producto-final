@@ -16,17 +16,30 @@ export const getPostById = async (req, res) => {
         const post = await PostModel.findByPk(user.id);
         res.status(200).json(post)
     } catch (error) {;
-        res.status(500).json({ message: "", error});
+        res.status(500).json({ message: "Error interno del servidor"});
+        console.log(error)
     }
 };
 
 export const createPost = async (req, res) => {
+    const {title, content, offer, product, market, price} = req.body;
     try {
-        const createPost = await PostModel.create(req.body);
-        res.status(201).json(createPost);
+        const createPost = await PostModel.create({
+            title: title,
+            content: content,
+            offer: offer,
+            product: product,
+            market: market,
+            price: price,
+            user_id: req.user.id
+        });
+        res.status(201).json({
+            message: "Publicación creada correctamente"
+        });
         
     } catch (error) {
-        res.status(500).json({ message: "", error});
+        res.status(500).json({ message: "Error interno del servidor"});
+        console.log(error)
     }
 };
 
@@ -40,7 +53,8 @@ export const updatePost = async (req, res) => {
             res.status(200).json(post)
         }
     } catch (error) {
-        res.status(500).json({ message: "", error});
+        res.status(500).json({ message: "Error interno del servidor"});
+        console.log(error)
     }
 };
 
@@ -50,6 +64,7 @@ export const deletePost = async (req, res) => {
         post.destroy();
         res.status(200).json({msj: "Categoría eliminada"})
     } catch (error) {
-        res.status(500).json({ message: "", error});
+        res.status(500).json({ message: "Error interno del servidor"});
+        console.log(error)
     }
 };

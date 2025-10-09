@@ -1,7 +1,6 @@
 
 import express from "express";
 import "dotenv/config";
-import dotenv from "dotenv";
 import cors from "cors";
 import { startDB } from "./src/config/database.js";
 import userRouter from "./src/routes/user.routes.js";
@@ -10,6 +9,7 @@ import categoryRouter from "./src/routes/category.routes.js";
 import postRouter from "./src/routes/post.routes.js";
 import ProductRouter from "./src/routes/product.routes.js";
 import cookieParser from "cookie-parser";
+import { offerRoutes } from "./src/routes/offer.routes.js";
 
 
 
@@ -30,6 +30,7 @@ app.use("/ekom", profileRouter);
 app.use("/ekom", categoryRouter);
 app.use("/ekom", postRouter);
 app.use("/ekom", ProductRouter);
+app.use("/ekom", offerRoutes)
 
 app.listen(PORT, async () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
