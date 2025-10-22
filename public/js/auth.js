@@ -51,7 +51,6 @@ if (loginForm) {
 
 // Registro
 const registerForm = document.getElementById('register-form');
-console.log("probar si funca")
 if (registerForm) {
   registerForm.addEventListener('submit', async (e) => {
     e.preventDefault();

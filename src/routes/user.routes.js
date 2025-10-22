@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { register, login, refresh, logout } from "../controllers/auth.controller.js";
+import { register, login, logout } from "../controllers/auth.controller.js";
 import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from "../controllers/user.controller.js";
 import { createUserValidation } from "../middlewares/validations/user.validation.js";
 import { handleValidation } from "../middlewares/validation_handler.js";
@@ -20,8 +20,6 @@ router.post("/login", login);
 router.post("/logout", logout);
 //Solo el admin debe poder eliminar y ver todos los usuarios
 router.delete("/user/:id", auth, admin, deleteUser);
-//Refresh
-router.post("/refresh", refresh);
 
 // Rutas protegidas
 router.get("/user", auth, getAllUsers);
